@@ -2,18 +2,18 @@
 
 namespace Tests\Feature;
 
-use App\Services\UserService;
+use App\Services\UserServices;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 class Userservicetest extends TestCase
 {
-    private UserService $UserService;
+    private UserServices $UserService;
 
     protected function setUp():void 
     {
         parent::setUp();
-        $this->UserService = $this->app->make(UserService::class);
+        $this->UserService = $this->app->make(UserServices::class);
     }
     
 
@@ -21,5 +21,10 @@ class Userservicetest extends TestCase
     {
         self::assertTrue(true);
     }
+
+    // public function testlog()
+    // {
+    //     self::assertTrue($this->UserService)
+    // }
     
 }

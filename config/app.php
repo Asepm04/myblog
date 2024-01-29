@@ -178,6 +178,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\UserProvider::class, 
         App\Providers\TestProvider::class,
+        App\Providers\TodolistProvider::class,
+        App\Providers\ExerciseProvider::class,
 
     ],
 

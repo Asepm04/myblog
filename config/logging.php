@@ -30,7 +30,8 @@ return [
     |
     */
 
-    'deprecations' => env('LOG_DEPRECATIONS_CHANNEL', 'null'),
+    // 'deprecations' => env('LOG_DEPRECATIONS_CHANNEL', 'null'),
+    'deprecations' => env('LOG_DEPRECATIONS_CHANNEL', 'stack'),
 
     /*
     |--------------------------------------------------------------------------
@@ -50,7 +51,7 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['single'],
+            'channels' => ['single','stderr'],
             'ignore_exceptions' => false,
         ],
 
@@ -93,6 +94,18 @@ return [
             'formatter' => env('LOG_STDERR_FORMATTER'),
             'with' => [
                 'stream' => 'php://stderr',
+            ],
+        ],
+
+        //ini handler buatan tangan wkwk
+        'file' => [
+            'driver' => 'monolog',
+            'level' => env('LOG_LEVEL', 'debug'),
+            'handler' => StreamHandler::class,
+            // 'formatter' => env('LOG_STDERR_FORMATTER'),
+            'formatter' => Monolog\Formatter\JsonFormatter::class,
+            'with' => [
+                'stream' => storage_path("logs/infolog.log"),
             ],
         ],
 

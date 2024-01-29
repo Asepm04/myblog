@@ -13,9 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get("/",[App\Http\Controllers\HomeController::class,"home"]);
 
 Route::view("/template","template");
 
@@ -25,3 +27,14 @@ Route::controller(App\Http\Controllers\UserController::class)->group(function()
     Route::post("/login","Dologin")->middleware([App\Http\Middleware\OnlyuserMiddle::class]);
     Route::post("/logout","Dologout")->middleware([App\Http\Middleware\Onlymembermiddle::class]);
 });
+
+Route::controller(App\Http\Controllers\TodolistController::class)
+->middleware(App\Http\Middleware\Onlymembermiddle::class)->group(function()
+{
+    Route::get("/todolist","todolist");
+    Route::post("todolist","addtodo");
+    Route::post("/remove/{id}/delete","removetodo");
+});
+
+
+Route::view("/error","isblad.error",[]);

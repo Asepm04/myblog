@@ -10,7 +10,6 @@ use App\Testt\TestService;
 class UserController extends Controller
 {
     private TestService $testService;
-    public $usr;
 
     public function __construct(TestService $testService)
     {

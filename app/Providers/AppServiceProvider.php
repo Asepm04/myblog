@@ -3,6 +3,12 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Services\Sinjection;
+use App\Services\Person;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Events\QueryExecuted;
+use Illuminate\Support\Facades\Log;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +19,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(Sinjection::class,function()
+    {
+        return new Sinjection();
+    });
     }
 
     /**
@@ -23,6 +32,19 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-    }
+        Blade::directive("hello",function($expression)
+    {
+        return "<?php echo 'hello ' . $expression ?>";
+    });
+
+        Blade::stringable(Person::class,function(Person $person)
+    {
+        return "$person->name : $person->addres";
+    });
+
+    DB::listen(function(QueryExecuted $sql)
+    {
+       Log::info($sql->sql); 
+    });
+  }
 }
