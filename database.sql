@@ -1,4 +1,4 @@
--- Active: 1704899309520@@127.0.0.1@3306@shoppeme
+-- Active: 1706542476563@@127.0.0.1@3306@myblog
 create database myblog;
 use myblog;
 
@@ -9,7 +9,7 @@ create table categories
     alamat VARCHAR(20) not null
 );
 
-select * from categories;
+select * from categoriess;
 alter table categories add date_at datetime  null;
 
 create table counters(
@@ -18,6 +18,7 @@ create table counters(
 ) engine innodb;
 
 
+show tables;
 select * from counters;
 drop TABLE counters;
 drop table categories;
